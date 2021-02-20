@@ -1,0 +1,20 @@
+name: 'mirror'
+on:
+  push:
+    branches:
+        - __mirror
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    name: mirror
+    steps:
+      - name: mirror
+        id: mirror
+        uses: amadigan/github-mirror@main
+        with:
+          origin: 'https://git.tuxfamily.org/chrony/chrony.git'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
